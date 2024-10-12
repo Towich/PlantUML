@@ -11,11 +11,16 @@ class Dish {
   - rating: Float
   - orderedTimes: Integer
   - description: String
+
+  + increaseOrderedTimes(): Unit
+  + getStatistics(): Map<String, String>
 }
 
 class Ingredient {
   - name: String
   - imageSource: String
+
+  + getName(): String
 }
 
 class PaymentCard {
@@ -23,16 +28,26 @@ class PaymentCard {
   - number: String
   - validUntil: String
   - CVV: String
+
+  + validate(): Boolean
 }
 
 class User {
   - id: UUID
   - username: String
   - phoneNumber: String
-  - bonusCount: Integer
+  - phoneIsVerified: Boolean
   - email: String
+  - emailIsVerified: Boolean
+  - bonusCount: Integer
   - password: String
   - paymentCards: List<PaymentCard>
+
+  + addPaymentCard(card: PaymentCard): Boolean
+  + removePaymentCard(card: PaymentCard): Boolean
+  + changeUsername(username: String): Boolean
+  + confirmPhoneNumber(): Boolean
+  + confirmEmail(): Boolean
 }
 
 class Restaurant {
@@ -44,11 +59,17 @@ class Restaurant {
   - longitude: Float
   - listOfTables: List<Table>
   - listOfOrders: List<Order>
+  + getListOfTables(): List<Table>
+  + getListOfOrders(): List<Order>
+  + addOrder(order: Order): Boolean
 }
 
 class Promotion {
   - id: UUID
   - imageSource: String
+  - discount: Float
+
+  + validatePromotion(): Boolean
 }
 
 class Order {
@@ -57,18 +78,33 @@ class Order {
   - restaurant: Restaurant
   - cost: Float
   - dishes: List<Dishes>
-  - reservedTable: Table
-  - reservedStart: Date
-  - reservedUntil: Date
   - status: String
-  - numberOfGuests: Integer
-  - comment: String
   - promotion: Promotion
+  - comment: String
+
+  + makeOrder(): Boolean
+}
+
+class Cart {
+  - dishes: List<Dish>
+
+  + addDish(dish: Dish): Boolean
+  + removeDish(dish: Dish): Boolean
+}
+
+class OrderManager {
+  - cart: Cart
+
+  - checkForPromotion(): Boolean
+  + makeNewOrder(): Order
+  + confirmOrder(order: Order): Boolean
 }
 
 class Category {
   - name: String
   - imageSource: String
+
+  + getName(): String
 }
 
 class Table {
@@ -78,17 +114,37 @@ class Table {
   - y: Integer
   - widthTiles: Integer
   - heightTiles: Integer
+
+  + changeIsFree(isFree: Boolean): Boolean
+  + getCoordinates(): Pair<Integer, Integer>
 }
 
-Dish o-- Category
-Dish o-- Ingredient
-Order o-- User
-Order o-- Dish
-User *-- PaymentCard
-Order o-- Table
-Restaurant o-- Order
-Restaurant o-- Table
-Order o-- Promotion
+class Reservation {
+  - id: UUID
+  - table: Table
+  - order: Order
+  - reservedStart: Date
+  - reservedUntil: Date
+  - numberOfGuests: Integer
+  - comment: String
+
+  + Reservation(order: Order, table: Table): Reservation
+  + confirmReservation(): Boolean
+  + cancelReservation(): Boolean
+}
+
+Dish "*" o-- "1" Category
+Dish "*" o-- "*" Ingredient
+Order "*" o-- "1" User
+Order "*" o-- "*" Dish
+Reservation "1" o-- "1" Order
+Reservation "1" o-- "1" Table
+User "1" *-- "*" PaymentCard
+Restaurant "1" o-- "*" Order
+Restaurant "1" o-- "*" Table
+Order "*" o-- "1" Promotion
+OrderManager "1" o-- "1" Cart
+OrderManager "1" --- "*" Order
 
 @enduml
 

@@ -9,6 +9,8 @@ participant "Сервис уведомлений" as Notifications
 
 Пользователь -> App: Открыть приложение
 activate App
+App --> Пользователь: Приложение открыто
+
 Пользователь -> App: Перейти на экран "Бронирование столов"
 App -> System: Запросить доступные столы
 activate System
@@ -17,6 +19,7 @@ activate DB
 DB --> System: Вернуть список доступных столов
 deactivate DB
 System --> App: Вернуть список доступных столов
+App --> Пользователь: Вернуть список доступных столов
 deactivate System
 Пользователь -> App: Выбрать стол, дату и время
 App -> System: Запрос на бронирование стола
@@ -37,14 +40,14 @@ deactivate System
 activate System
 System -> DB: Обновить статус бронирования
 activate DB
-DB --> System: Подтверждение обновления
+DB ->> System: Подтверждение обновления
 deactivate DB
-System -> Notifications: Отправить уведомление клиенту
+System ->> Notifications: Отправить уведомление клиенту
 activate Notifications
 Notifications --> System: Подтверждение отправки
 deactivate Notifications
-System --> App: Уведомить об изменении статуса бронирования
+System ->> App: Уведомить об изменении статуса бронирования
 deactivate System
-App --> Пользователь: Уведомить о статусе бронирования
+App ->> Пользователь: Уведомить о статусе бронирования
 
 @enduml

@@ -4,12 +4,12 @@ object "Система заказа" as OrderSystem
 object "Менеджер ресторана" as RestaurantManager
 object "Система оплаты" as PaymentSystem
 
-User -> OrderSystem : Выбор блюд
-User --> OrderSystem : Сделать заказ
-OrderSystem --> RestaurantManager : Отправить информацию о заказе
-RestaurantManager -> OrderSystem : Подтвердить заказ
-OrderSystem --> PaymentSystem : Обработка платежа
-PaymentSystem --> OrderSystem : Подтверждение платежа
-OrderSystem --> User : Уведомление о статусе заказа
+User -> OrderSystem : 1. Выбор блюд
+User --> OrderSystem : 2. Сделать заказ
+OrderSystem --> RestaurantManager : 3. Отправить информацию о заказе
+RestaurantManager -> OrderSystem : 4. Подтвердить заказ
+OrderSystem --> PaymentSystem : 5. Обработка платежа
+PaymentSystem --> OrderSystem : 6. Подтверждение платежа
+OrderSystem --> User : 7. Уведомление о статусе заказа
 
 @enduml
