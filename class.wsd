@@ -1,0 +1,94 @@
+@startuml
+class Dish {
+  - id: UUID
+  - category: String
+  - name: String
+  - ingredients: List<Ingredient>
+  - imageSource: String
+  - price: Integer
+  - grams: Integer
+  - timeToCook: Integer
+  - rating: Float
+  - orderedTimes: Integer
+  - description: String
+}
+
+class Ingredient {
+  - name: String
+  - imageSource: String
+}
+
+class PaymentCard {
+  - id: UUID
+  - number: String
+  - validUntil: String
+  - CVV: String
+}
+
+class User {
+  - id: UUID
+  - username: String
+  - phoneNumber: String
+  - bonusCount: Integer
+  - email: String
+  - password: String
+  - paymentCards: List<PaymentCard>
+}
+
+class Restaurant {
+  - id: UUID
+  - city: String
+  - street: String
+  - house: String
+  - latitude: Float
+  - longitude: Float
+  - listOfTables: List<Table>
+  - listOfOrders: List<Order>
+}
+
+class Promotion {
+  - id: UUID
+  - imageSource: String
+}
+
+class Order {
+  - id: UUID
+  - user: User
+  - restaurant: Restaurant
+  - cost: Float
+  - dishes: List<Dishes>
+  - reservedTable: Table
+  - reservedStart: Date
+  - reservedUntil: Date
+  - status: String
+  - numberOfGuests: Integer
+  - comment: String
+  - promotion: Promotion
+}
+
+class Category {
+  - name: String
+  - imageSource: String
+}
+
+class Table {
+  - id: UUID
+  - isFree: Boolean
+  - x: Integer
+  - y: Integer
+  - widthTiles: Integer
+  - heightTiles: Integer
+}
+
+Dish o-- Category
+Dish o-- Ingredient
+Order o-- User
+Order o-- Dish
+User *-- PaymentCard
+Order o-- Table
+Restaurant o-- Order
+Restaurant o-- Table
+Order o-- Promotion
+
+@enduml
+

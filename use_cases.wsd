@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+actor "Клиент" as client
+actor "Персонал" as employee
+
+rectangle Ресторан {
+ usecase "Просмотр меню" as UC1
+ usecase "Добавление в корзину" as UC2
+ usecase "Оформление заказа" as UC3
+ usecase "Просмотр столиков" as UC4
+ usecase "Бронирование столика" as UC5
+ usecase "Выбор платежного метода" as UC6
+ usecase "Просмотр истории заказов" as UC7
+ usecase "Просмотр уведомлений" as UC8
+ usecase "Добавление платежной карты" as UC9
+ usecase "Просмотр отчета продаж" as UC10
+ usecase "Управление заказами" as UC11
+ note bottom of UC6 : Выбор карты, наличные, оплата через систему
+
+}
+
+client --> UC1
+client --> UC2
+client --> UC3
+client --> UC4
+client --> UC5
+client --> UC7
+client --> UC8
+UC3 .> UC6: include
+UC6 .> UC9: extend
+employee --> UC10
+employee --> UC11
+
+
+@enduml

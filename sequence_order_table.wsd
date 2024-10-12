@@ -1,0 +1,50 @@
+@startuml
+
+actor Пользователь
+actor Администратор
+participant "Мобильное приложение" as App
+participant "Система бронирования" as System
+participant "База данных" as DB
+participant "Сервис уведомлений" as Notifications
+
+Пользователь -> App: Открыть приложение
+activate App
+Пользователь -> App: Перейти на экран "Бронирование столов"
+App -> System: Запросить доступные столы
+activate System
+System -> DB: Запрос доступных столов
+activate DB
+DB --> System: Вернуть список доступных столов
+deactivate DB
+System --> App: Вернуть список доступных столов
+deactivate System
+Пользователь -> App: Выбрать стол, дату и время
+App -> System: Запрос на бронирование стола
+activate System
+System -> DB: Сохранить информацию о бронировании
+activate DB
+DB --> System: Подтверждение сохранения
+deactivate DB
+System -> Notifications: Отправить уведомление администратору
+activate Notifications
+Notifications --> System: Подтверждение отправки
+deactivate Notifications
+System --> Администратор: Уведомить о новом бронировании
+deactivate System
+Администратор --> Пользователь: Запросить подтверждение бронирования
+Пользователь -> Администратор: Подтвердить бронирование
+Администратор -> System: Подтвердить бронирование стола
+activate System
+System -> DB: Обновить статус бронирования
+activate DB
+DB --> System: Подтверждение обновления
+deactivate DB
+System -> Notifications: Отправить уведомление клиенту
+activate Notifications
+Notifications --> System: Подтверждение отправки
+deactivate Notifications
+System --> App: Уведомить об изменении статуса бронирования
+deactivate System
+App --> Пользователь: Уведомить о статусе бронирования
+
+@enduml

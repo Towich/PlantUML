@@ -1,0 +1,51 @@
+' @startuml
+' class Dish
+' class PaymentCard
+' class Table
+' class Restaurant
+' class User
+' class Order
+' class Ingredient
+' class Category
+
+' Order 1 --- * User
+
+' Dish *-- Ingredient
+' Dish *-- Category
+' @enduml
+
+@startuml
+
+class Ресторан {
+
+}
+
+class Меню {
+
+}
+
+class Блюдо {
+
+}
+
+class Заказ {
+
+}
+
+class Клиент {
+
+}
+
+class Бронирование {
+
+}
+
+Ресторан *-- Меню
+Меню *-- Блюдо
+Заказ *-- Блюдо
+Заказ *-- Клиент
+Заказ *-- Ресторан
+Бронирование *-- Клиент
+Бронирование *-- Ресторан
+
+@enduml
