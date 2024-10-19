@@ -1,0 +1,56 @@
+@startuml
+node "Мобильное устройство" {
+  artifact "Мобильное приложение" {
+    component "Логика приложения" as AppLogic
+    component "Платежная система" as PaymentSystem
+    component "Google Maps" as GoogleMaps
+    component "Экран авторизации" as AuthScreen
+    component "Экран столов" as TablesScreen
+    component "Экран блюд" as DishesScreen
+    component "Экран карты" as MapScreen
+    component "Экран профиля" as ProfileScreen
+    component "Главное меню" as MainMenu
+    component "Сетевой клиент" as NetworkClient
+    component "Локальное хранилище" as LocalStorage
+  }
+}
+
+node "Сервер" {
+  artifact "Бэкенд" {
+    component "Сетевой клиент" as NetworkClient1
+    component "Серверная логика" as ServerLogic
+    component "Сервис уведомлений" as Notifications
+    component "Сервис отчетов" as ReportService
+  }
+}
+
+node "Сервер баз данных" {
+    component "Сетевой клиент" as NetworkClient2
+    component "Серверная логика" as ServerLogic1
+    component "СУБД PostgreSQL" as Database1
+    component "База данных" as DB
+}
+
+AppLogic --(0 PaymentSystem
+AppLogic --(0 GoogleMaps
+AppLogic -(0)- NetworkClient
+AppLogic --(0 LocalStorage
+
+AuthScreen --(0 AppLogic  
+TablesScreen --(0 AppLogic
+DishesScreen --(0 AppLogic
+MapScreen --(0 AppLogic
+ProfileScreen --(0 AppLogic  
+MainMenu--(0 AppLogic 
+
+NetworkClient -(0)- NetworkClient1
+NetworkClient1 -(0)- ServerLogic
+NetworkClient1 --(0 NetworkClient2
+
+
+ServerLogic --(0 Notifications
+ServerLogic --(0 ReportService
+NetworkClient2 -(0)- ServerLogic1
+ServerLogic1 --(0 Database1
+Database1 --(0 DB
+@enduml

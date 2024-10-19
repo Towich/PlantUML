@@ -1,0 +1,28 @@
+@startuml
+package "Мобильное приложение" {
+  component "Клиентский интерфейс" as ClientInterface
+  component "Логика приложения" as AppLogic
+}
+
+package "Бэкенд система" {
+  component "Серверная логика" as ServerLogic
+  component "СУБД PostgreSQL" as Database
+  
+  component "Сервис уведомлений" as Notifications
+  component "Сервис отчетов" as ReportService
+}
+
+package "Внешние сервисы" {
+  component "Платежная система" as PaymentSystem
+  component "Google Maps" as GoogleMaps
+}
+
+ClientInterface --(0 AppLogic
+AppLogic -(0 ServerLogic
+AppLogic --(0 PaymentSystem
+AppLogic --(0 GoogleMaps
+
+ServerLogic --(0 Database
+ServerLogic --(0 Notifications
+ServerLogic --(0 ReportService
+@enduml
