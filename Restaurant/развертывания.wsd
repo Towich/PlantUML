@@ -31,26 +31,29 @@ node "Сервер баз данных" {
     component "База данных" as DB
 }
 
-AppLogic --(0 PaymentSystem
-AppLogic --(0 GoogleMaps
-AppLogic -(0)- NetworkClient
-AppLogic --(0 LocalStorage
+"Мобильное устройство" --- "Сервер"
+"Сервер" --- "Сервер баз данных"
 
-AuthScreen --(0 AppLogic  
-TablesScreen --(0 AppLogic
-DishesScreen --(0 AppLogic
-MapScreen --(0 AppLogic
-ProfileScreen --(0 AppLogic  
-MainMenu--(0 AppLogic 
+AppLogic -(0- PaymentSystem
+AppLogic -(0- GoogleMaps
+AppLogic -(0- NetworkClient
+NetworkClient -(0- AppLogic
+AppLogic -(0- LocalStorage
 
-NetworkClient -(0)- NetworkClient1
-NetworkClient1 -(0)- ServerLogic
-NetworkClient1 --(0 NetworkClient2
+AuthScreen -(0- AppLogic  
+TablesScreen -(0- AppLogic
+DishesScreen -(0- AppLogic
+MapScreen -(0- AppLogic
+ProfileScreen -(0- AppLogic  
+MainMenu -(0- AppLogic 
 
+NetworkClient1 -(0- ServerLogic
+ServerLogic -(0- NetworkClient1
 
-ServerLogic --(0 Notifications
-ServerLogic --(0 ReportService
-NetworkClient2 -(0)- ServerLogic1
-ServerLogic1 --(0 Database1
-Database1 --(0 DB
+ServerLogic -(0- Notifications
+ServerLogic -(0- ReportService
+NetworkClient2 -(0- ServerLogic1
+ServerLogic1 -(0- NetworkClient2
+ServerLogic1 -(0- Database1
+Database1 -(0- DB
 @enduml

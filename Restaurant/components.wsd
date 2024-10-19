@@ -17,12 +17,12 @@ package "Внешние сервисы" {
   component "Google Maps" as GoogleMaps
 }
 
-ClientInterface --(0 AppLogic
-AppLogic -(0 ServerLogic
-AppLogic --(0 PaymentSystem
-AppLogic --(0 GoogleMaps
+ClientInterface -(0- AppLogic
+AppLogic -(0- ServerLogic
+AppLogic -(0- PaymentSystem
+AppLogic -(0- GoogleMaps
 
-ServerLogic --(0 Database
-ServerLogic --(0 Notifications
-ServerLogic --(0 ReportService
+ServerLogic -(0- Database
+ServerLogic -(0- Notifications
+ServerLogic -(0- ReportService
 @enduml
