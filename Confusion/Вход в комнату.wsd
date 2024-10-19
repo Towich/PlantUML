@@ -1,0 +1,41 @@
+@startuml
+
+actor User
+participant "Мобилка" as Mobile
+participant "Бэк" as Backend
+Database "База данных" as DB
+
+User -> Mobile: Нажимает "Присоединиться к игре"
+activate Mobile
+Mobile --> User: Показан экран JoinScreen
+alt Вход через сканер QR-кода
+    User -> Mobile: Наводит камеру на QR-код
+    Mobile -> Mobile: Переводит QR в код комнаты
+else Вход через код комнаты
+    User -> Mobile: Вписывает код комнаты
+    User -> Mobile: Нажимает "Подключиться"
+end
+Mobile -> Backend: POST на вход в комнату \n(roomId: Long)
+activate Backend
+Backend -> DB: Проверяем условия: \n1) существование комнаты\n2) её заполненность
+activate DB
+alt Комната не существует
+    DB --> Backend: Комната не существует
+    Backend --> Mobile: RESPONSE 404: комнаты не существует
+    Mobile --> User: Снэк на экране: комнаты не существует
+else Комната переполнена (12/12 человек)
+    DB --> Backend: Комната переполнена
+    Backend --> Mobile: RESPONSE 4xx: комната переполнена
+    Mobile --> User: Снэк на экране: комната переполнена
+else Комната существует и не переполнена
+    DB --> Backend: Комната подходит для подключения
+    Backend -> DB: Добавление нового игрока в комнату
+    DB --> Backend: Игрок успешно добавлен
+    Backend -> Backend: Рассылка в топик RoomPlayersTopic\nо новом игроке в комнате
+    Backend --> Mobile: RESPONSE 2xx: успешный вход \n(roomId: Long, roomPlayer: RoomPlayer)
+    Mobile -> Mobile: Переход на экран комнаты
+    Mobile --> User: Показан экран RoomScreen
+end
+Mobile ->> Backend: SUBSCRIBE на топик RoomPlayersTopic
+Mobile ->> Backend: SUBSCRIBE на топик RoomStateTopic
+@enduml

@@ -31,29 +31,29 @@ node "Сервер баз данных" {
     component "База данных" as DB
 }
 
-"Мобильное устройство" --- "Сервер"
-"Сервер" --- "Сервер баз данных"
+"Мобильное устройство" --- "Сервер": HTTPS
+"Сервер" --- "Сервер баз данных": HTTPS
 
-AppLogic -(0- PaymentSystem
-AppLogic -(0- GoogleMaps
-AppLogic -(0- NetworkClient
-NetworkClient -(0- AppLogic
-AppLogic -(0- LocalStorage
+AppLogic -(0- PaymentSystem : использует
+AppLogic -(0- GoogleMaps : использует
+AppLogic -(0- NetworkClient : использует
+NetworkClient -(0- AppLogic : обрабатывает
+AppLogic -(0- LocalStorage : использует
 
-AuthScreen -(0- AppLogic  
-TablesScreen -(0- AppLogic
-DishesScreen -(0- AppLogic
-MapScreen -(0- AppLogic
-ProfileScreen -(0- AppLogic  
-MainMenu -(0- AppLogic 
+AuthScreen -(0- AppLogic : вызывает
+TablesScreen -(0- AppLogic : вызывает
+DishesScreen -(0- AppLogic : вызывает
+MapScreen -(0- AppLogic : вызывает
+ProfileScreen -(0- AppLogic : вызывает
+MainMenu -(0- AppLogic : вызывает
 
-NetworkClient1 -(0- ServerLogic
-ServerLogic -(0- NetworkClient1
+NetworkClient1 -(0- ServerLogic : использует
+ServerLogic -(0- NetworkClient1 : обрабатывает
 
-ServerLogic -(0- Notifications
-ServerLogic -(0- ReportService
-NetworkClient2 -(0- ServerLogic1
-ServerLogic1 -(0- NetworkClient2
-ServerLogic1 -(0- Database1
-Database1 -(0- DB
+ServerLogic -(0- Notifications : использует
+ServerLogic -(0- ReportService : использует
+NetworkClient2 -(0- ServerLogic1 : использует
+ServerLogic1 -(0- NetworkClient2 : обрабатывает
+ServerLogic1 -(0- Database1 : использует
+Database1 -(0- DB : использует
 @enduml
