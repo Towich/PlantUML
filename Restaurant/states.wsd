@@ -11,4 +11,33 @@
 
 Подан --> [*]
 Отменен --> [*]
+
+Создан : entry: initializeOrder()
+Создан : do: awaitConfirmation()
+Создан : exit: notifyCreation()
+
+Ожидает_подтверждения : entry: awaitConfirmation()
+Ожидает_подтверждения : do: checkTimeout()
+Ожидает_подтверждения : exit: notifyAwaiting()
+    
+Подтвержден : entry: prepareCooking()
+Подтвержден : do: monitorCooking()
+Подтвержден : exit: notifyConfirmation()
+    
+В_приготовлении : entry: startCookingProcess()
+В_приготовлении : do: controlTemperature()
+В_приготовлении : exit: notifyCookingCompletion()
+
+Готов_к_подаче: entry: finalizeCooking()
+Готов_к_подаче: do: prepareForDelivery()
+Готов_к_подаче: exit: notifyReadyForDelivery()
+
+Подан: entry: initiateDelivery()
+Подан: do: trackDelivery()
+Подан: exit: notifyDeliveryCompletion()
+
+Отменен : entry: cancelOrderProcess()
+Отменен : do: notifyCancellation()
+Отменен : exit: resetOrder()
+
 @enduml
