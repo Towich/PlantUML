@@ -1,5 +1,5 @@
 @startuml
-
+autonumber
 actor User
 participant "Мобилка" as Mobile
 participant "Бэк" as Backend

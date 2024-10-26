@@ -1,0 +1,41 @@
+@startuml
+autonumber
+actor User
+
+participant "RoomScreen" as room
+participant "StartTimerScreen" as startTimer
+participant "MapScreen" as map
+participant "MapVM" as vm
+participant "GeoTrackingBroadcastReceiver" as geotracker
+participant "Бэк" as back
+
+User -> room: Нажимает "Начать игру"
+
+activate room
+room ->> room: Проверяет условия старта
+room ->> startTimer: Переход на экран
+deactivate room
+
+activate startTimer
+startTimer -> startTimer: Ожидание таймера\n(3 секунды)
+startTimer ->> map: Переход на экран
+deactivate startTimer
+
+activate map
+map -> vm: Инициализация ViewModel
+activate vm
+vm ->> geotracker: Инициализация ресивера
+activate geotracker
+vm ->> back: WS: Регистрация на топики
+vm ->> back: GET: Получение информации об игре
+note left: код комнаты
+vm --> map: ViewModel создана
+map -> map: Инициализация\nGoogle Maps
+map --> User: Показ Google Maps
+back --> vm: Response
+note left: статус игры\nкорды корабля\nсписок заданий
+vm ->> map: Уствновка статуса игры,\nкорабля,\nсписка заданий
+map --> User: Показ статуса игры, корабля и списка заданий
+
+
+@enduml

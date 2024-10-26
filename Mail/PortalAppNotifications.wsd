@@ -1,0 +1,21 @@
+@startuml
+autonumber
+participant "Activity" as Activity
+participant "Fragment" as Fragment
+participant "ViewModelFactory" as ViewModelFactory
+participant "ViewModel" as ViewModel
+participant "Interactor" as Interactor
+participant "Interactor" as Interactor
+participant "Repository" as Repository
+participant "AppTagsStorage" as AppTagsStorage
+participant "SharedPreferences" as SharedPreferences
+
+Activity -> Fragment: addFragment()
+Fragment -> ViewModelFactory: viewModel by viewModels()\n+ savedInstanceState
+ViewModelFactory -> ViewModel: create()
+ViewModel -> Interactor: Inject
+Interactor -> Repository: Inject
+Repository -> AppTagsStorage: Inject
+AppTagsStorage -> SharedPreferences: getDefaultSharedPreferences()
+
+@enduml

@@ -1,0 +1,12 @@
+@startuml
+autonumber
+participant "Fragment" as Fragment
+participant "WebAppViewModelAssistedFactory" as WebAppViewModelAssistedFactory
+participant "WebAppViewModel" as WebAppViewModel
+
+Fragment -> WebAppViewModelAssistedFactory: @Inject
+Fragment -> WebAppViewModel: providesFactory(\nassistedFactory: WebAppViewModelAssistedFactory\n)
+WebAppViewModel -> WebAppViewModelAssistedFactory: create()
+WebAppViewModelAssistedFactory --> Fragment: WebAppViewModel
+
+@enduml
