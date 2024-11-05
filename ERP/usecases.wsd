@@ -1,0 +1,55 @@
+@startuml
+left to right direction
+actor "Клиент" as client
+actor "Официант" as waiter
+actor "Повар" as cook
+actor "Администратор" as admin
+actor "Менеджер по закупкам" as purchaser
+actor "Бухгалтер" as accountant
+
+rectangle "Система управления рестораном TheБЫК (1C:Управление предприятием общепита)" {
+  usecase "Сделать заказ" as UC1
+  usecase "Принять заказ" as UC2
+  usecase "Приготовить блюдо" as UC3
+  usecase "Оплатить заказ" as UC4
+  usecase "Управлять меню" as UC5
+  usecase "Управлять персоналом" as UC6
+  usecase "Просмотреть отчеты" as UC7
+  usecase "Резервировать столик" as UC8
+  usecase "Управлять складскими запасами" as UC9
+  usecase "Планировать закупки" as UC10
+  usecase "Вести учет рабочего времени" as UC11
+  usecase "Формировать финансовые отчеты" as UC12
+  usecase "Анализировать продажи" as UC13
+  usecase "Контролировать занятость столов" as UC14
+  usecase "Контролировать качество блюд" as UC15
+  usecase "Планировать меню" as UC16
+  usecase "Управлять доставкой" as UC17
+  usecase "Вести учет отходов" as UC18
+}
+
+client --> UC1
+client --> UC4
+client --> UC8
+waiter --> UC2
+waiter --> UC11
+waiter --> UC14
+cook --> UC3
+cook --> UC15
+cook --> UC16
+admin --> UC5
+admin --> UC6
+admin --> UC7
+admin --> UC13
+admin --> UC17
+purchaser --> UC9
+purchaser --> UC10
+accountant --> UC12
+accountant --> UC18
+
+UC5 ..> UC16 : <<include>>
+UC7 ..> UC13 : <<include>>
+UC9 ..> UC10 : <<include>>
+UC1 ..> UC8 : <<extend>>
+
+@enduml

@@ -1,0 +1,53 @@
+@startuml
+
+skinparam component {
+  BackgroundColor LightSkyBlue
+  BorderColor DarkSlateGray
+  ArrowColor DarkSlateGray
+}
+
+[Платформа 1С:Предприятие] as Platform
+
+package "1С:Управление предприятием общепита" {
+  [Модуль управления\nзаказами] as OrderManagement
+  [Модуль управления\nпроизводством] as ProductionManagement
+  [Модуль управления\nскладом] as InventoryManagement
+  [Модуль управления\nзакупками] as PurchaseManagement
+  [Модуль управления\nперсоналом] as HRManagement
+  [Модуль финансового\nучета] as FinanceManagement
+  [Модуль аналитики\nи отчетности] as ReportingModule
+  [Модуль управления\nлояльностью] as LoyaltyManagement
+  [Модуль планирования\nменю] as MenuPlanning
+}
+
+database "База данных" as Database
+
+Platform -(0- OrderManagement
+Platform -(0- ProductionManagement
+Platform -(0- InventoryManagement
+Platform -(0- PurchaseManagement
+Platform -(0- HRManagement
+Platform -(0- FinanceManagement
+Platform -(0- ReportingModule
+Platform -(0- LoyaltyManagement
+Platform -(0- MenuPlanning
+
+OrderManagement -(0- Database
+ProductionManagement -(0- Database
+InventoryManagement -(0- Database
+PurchaseManagement -(0- Database
+HRManagement -(0- Database
+FinanceManagement -(0- Database
+ReportingModule -(0- Database
+LoyaltyManagement -(0- Database
+MenuPlanning -(0- Database
+
+RECTANGLE "POS-терминал" as POS
+RECTANGLE "Мобильное приложение\nофицианта" as MobileApp
+RECTANGLE "Кухонный дисплей" as KitchenDisplay
+
+POS -(0- OrderManagement 
+MobileApp -(0- OrderManagement
+ProductionManagement -(0- KitchenDisplay
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+
+skinparam node {
+  BackgroundColor LightSkyBlue
+  BorderColor DarkSlateGray
+}
+
+node "Сервер 1С:Предприятие" as Server {
+  [Платформа 1С:Предприятие] as Platform
+  database "База данных" as Database
+}
+
+node "Рабочая станция менеджера" as ManagerPC {
+  [Тонкий клиент   1С]
+}
+
+node "Рабочая станция бухгалтера" as AccountantPC {
+  [Тонкий клиент 1С]
+}
+
+node "Мобильный телефон администратора" as AdminPC {
+  [Тонкий клиент  1С]
+}
+
+node "POS-терминал" as POSTerminal {
+  [Модуль управления заказами]
+}
+
+node "Планшет официанта" as WaiterTablet {
+  [Мобильное приложение официанта]
+}
+
+node "Кухонный терминал" as KitchenTerminal {
+  [Кухонный дисплей]
+}
+
+cloud "Интернет" as Internet
+
+Server -down- Internet : HTTPS
+ManagerPC -down- Internet : HTTPS
+AccountantPC -down- Internet : HTTPS
+AdminPC -up- Internet : HTTPS
+POSTerminal -up- Internet : HTTPS
+WaiterTablet -down- Internet : HTTPS
+KitchenTerminal -up- Internet : HTTPS
+
+@enduml
